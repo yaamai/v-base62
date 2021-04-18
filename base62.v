@@ -48,8 +48,12 @@ fn base62_chars_index(ch rune) ?int {
 	return error("invalid base62 char")
 }
 
-pub fn decode(data string) []byte {
-	mut buf := []byte{len: int(f64(data.len))}
+pub fn decode(data string, output_length int) []byte {
+	mut buflen := output_length
+	if output_length == -1 {
+		buflen = int(f64(data.len))
+	}
+	mut buf := []byte{len: buflen}
 	mut last_pos := 0
 	for d in data {
 		mut calc := base62_chars_index(d) or { continue }
@@ -61,6 +65,10 @@ pub fn decode(data string) []byte {
 		}
 		last_pos = idx
 	}
+	if output_length != -1 {
+		return buf
+	}
+
 	mut first_non_zero := 0
 	for b in buf {
 		if b != 0 {
