@@ -1,4 +1,4 @@
-module base62
+module base
 
 fn test_base62_encode() {
 	assert encode([byte(100), 100]) == "6gW"

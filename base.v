@@ -1,4 +1,4 @@
-module base62
+module base
 
 // vlang can't declare map in global context (currently?)
 enum Base {
